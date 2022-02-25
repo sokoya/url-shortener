@@ -1,0 +1,1 @@
+export const shortenText = (text) => `${text.slice(0, 10)}`;
