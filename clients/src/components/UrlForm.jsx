@@ -14,6 +14,7 @@ const UrlForm = () => {
     const [urlText, setUrlText] = useState('');
     const [error, setError] = useState(false);
     const [shortCode, setShortCode] = useState(null);
+    const [copiedUrl, setCopiedUrl] = useState('');
 
     const handleSubmit = ( e ) => {
         e.preventDefault();
@@ -36,14 +37,14 @@ const UrlForm = () => {
         setUrlText(e.target.value);
     }
 
-    const clearForm = () => {
-        setUrlText('');
-        setError(false);
+    const copyUrl = (url) =>{
+        setCopiedUrl(url);
     }
+
     return(
         <>
         {/* absolute, relative */}
-            <div className=' bg-gray-100 h-auto w-full'>
+            <div className='bg-gray-100 h-auto w-full'>
                 <div className="container md:ml-10">
                     <form className="relative -top-14" onSubmit={handleSubmit}>
                         <div className="
@@ -89,14 +90,20 @@ const UrlForm = () => {
                         <div className='md:-mt-8 -mt-10'>
                             {['shrco.de/', '9qr.de/', 'shiny.link/'].map(( item ) => (
                                <div className={`${shorltLinkStyles} mt-0`} key={item}>
-                                    <div className='border-b-[1px] md:border-b-0 py-2 flex-1 overflow-hidden'>
-                                        <span className='px-4 text-url-primary-violet text-center'>{urlText}</span>
+                                    <div className='border-b-[1px] md:border-b-0 py-2 flex-1 px-4'>
+                                        <span className=' text-url-primary-violet text-center'>{urlText}</span>
                                     </div>
                                     <div className='m-2 px-2'>
                                         <h3 className='text-url-cyan'>{`${item}${shortCode}`}</h3>
                                     </div>
                                     <div className='mx-4 md:ml-2'>
-                                        <button className='btn btn-cyan w-full rounded-md px-8 py-2 btn-cyan hover:bg-cyan-300'>Copy</button>
+                                        {/* ${copiedCurl} === ${item}${shortCode} ? url-primary-violet : btn-cyan */}
+                                        <button 
+                                            className={`btn w-full rounded-md px-8 py-2 ${item === copiedUrl ? 'bg-url-primary-violet' : 'btn-cyan hover:bg-cyan-300'}`}
+                                            onClick={() => setCopiedUrl(item)}
+                                        >
+                                            {copiedUrl === item ? 'Copied !' : 'Copy'}
+                                        </button>
                                     </div>
                                 </div>
                             ))}
@@ -123,7 +130,7 @@ const UrlForm = () => {
                                         <h3 className='font-bold text-2xl subpixel-antialiased md:text-left text-center'>
                                             Brand Recognition
                                         </h3>
-                                        <p className='text-url-gray-violet text-base mt-4 font-normal leading-7 text-center md:text-left'>
+                                        <p className='text-url-gray-violet text-base mt-4 font-normal leading-7 text-center md:text-left px-1'>
                                             Boost your brand recognition with each click. Generic links don't mean a thing. Branded links helps instil confidence in your content.
                                         </p>
                                     </div>

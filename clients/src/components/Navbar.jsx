@@ -55,7 +55,7 @@ const Navbar = () => {
                          <i className="fas fa-bars" onClick={() => setToggleMenu(true)}></i> 
                     </span>
                 )}
-                {!toggleMenu && (
+                {toggleMenu && (
                     <div className="
                     container 
                     mx-4 
